@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block title %}
+/Sugerencias
+{% endblock %}
+
+{% block main %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let restaurante = querySelector('#restaurant')
+        restaurante.addEventListener('change', function() {
+            let selectedOption = restaurante.options[restaurant.selectedIndex];
+            alert(`Seleccionaste: ${selectedOption.text}`);
+        })
+    });
+</script>
+<div id="formulario">
+    <h1>Buzón de sugerencias</h1>
+    <form action="/formulario" method="post">
+        <div  class="mb-3">
+            <h5>Restaurante:</h5>
+            <select class="form-select" id="restaurant" aria-label="Restaurante" name="restaurante" required>
+                <option disabled selected>Restaurante</option>
+                {% for i in restaurantes %}
+                <option value="{{i.restaurante}}">{{i.restaurante}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <h5>Mesero:</h5>
+            <select  class="form-select" aria-label="Mesero" name="nombre_mesero">
+                <option disabled selected>Nombre del mesero</option>
+                {% for i in meseros %}
+                <option>{{i.nombreMesero}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <h5>Calidad de la comida</h5><br>
+            <input class="mb-3" type="radio" name="calidadcomida" value="Excelente">
+            <label class="mb-3" for="excelente">Excelente</label><br>
+            <input class="mb-3" type="radio" name="calidadcomida" value="Muy buena">
+            <label class="mb-3" for="muyBueno">Muy bueno</label><br>
+            <input class="mb-3" type="radio" name="calidadcomida" value="Buena">
+            <label class="mb-3" for="bueno">Bueno</label><br>
+            <input class="mb-3" type="radio" name="calidadcomida" value="Mala">
+            <label class="mb-3" for="malo">Malo</label><br>
+        </div>
+        <div class="mb-3">
+            <h5>Calidad del servicio</h5><br>
+            <input class="mb-3" type="radio" name="calidadServicio" value="Excelente">
+            <label class="mb-3" for="excelente">Excelente</label><br>
+            <input class="mb-3" type="radio" name="calidadServicio" value="Muy bueno">
+            <label class="mb-3" for="muyBueno">Muy bueno</label><br>
+            <input class="mb-3" type="radio" name="calidadServicio" value="Bueno">
+            <label class="mb-3" for="bueno">Bueno</label><br>
+            <input class="mb-3" type="radio" name="calidadServicio" value="Malo">
+            <label class="mb-3" for="malo">Malo</label><br>
+        </div>
+        <div class="mb-3">
+            <h5>Ambiente e instalaciones</h5><br>
+            <input class="mb-3" type="radio" name="calidadinstalaciones" value="Excelente">
+            <label class="mb-3" for="excelente">Excelente</label><br>
+            <input class="mb-3" type="radio" name="calidadinstalaciones" value="Muy bueno">
+            <label class="mb-3" for="muyBueno">Muy bueno</label><br>
+            <input class="mb-3" type="radio" name="calidadinstalaciones" value="Bueno">
+            <label class="mb-3" for="bueno">Bueno</label><br>
+            <input class="mb-3" type="radio" name="calidadinstalaciones" value="Malo">
+            <label class="mb-3" for="malo">Malo</label><br>
+        </div>
+        <div class="mb-3">
+            <h5>Limpieza de los baños</h5><br>
+            <input class="mb-3" type="radio" name="limpieza" value="Excelente">
+            <label class="mb-3" for="excelente">Excelente</label><br>
+            <input class="mb-3" type="radio" name="limpieza" value="Muy buena">
+            <label class="mb-3" for="muyBueno">Muy bueno</label><br>
+            <input class="mb-3" type="radio" name="limpieza" value="Buena">
+            <label class="mb-3" for="bueno">Bueno</label><br>
+            <input class="mb-3" type="radio" name="limpieza" value="Mala">
+            <label class="mb-3" for="malo">Malo</label><br>
+        </div>
+        <div class="mb-3">
+            <h5>Le ofrecieron promociones existentes?</h5>
+            <input class="mb-3" type="radio" name="promo" value="Si">
+            <label class="mb-3" for="true">Si</label>
+            <input class="mb-3" type="radio" name="promo" value="No">
+            <label class="mb-3" for="false">No</label><br>
+
+            <h5>Fueron amables al atender?</h5>
+            <input class="mb-3" type="radio" name="amabilidad" value="Si">
+            <label class="mb-3" for="true">Si</label>
+            <input class="mb-3" type="radio" name="amabilidad" value="No">
+            <label class="mb-3" for="false">No</label><br>
+        </div>
+
+        <div class="mb-3">
+            <h5 class="mb-3">Comentarios y sugerencias</h5>
+            <div  class="form-floating">
+                <textarea name="comentario" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Commentario</label>
+            </div>
+        </div>
+              <button class="btn btn-dark" type="submit">Enviar</button>
+    </form>
+</div>
+{% endblock %}

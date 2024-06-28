@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+   /Registro
+{% endblock %}
+
+{% block main %}
+ <div class="container py-5 text-center" id="registro">
+     <form action="/registro" method="post">
+         <div class="mb-3">
+             <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="username" placeholder="Nombre de usuario" type="text">
+         </div>
+         <div class="mb-3">
+             <input class="form-control mx-auto w-auto" name="password" placeholder="Contraseña" type="password">
+         </div>
+         <div class="mb-3">
+             <input class="form-control mx-auto w-auto" name="password(again)" placeholder="Contraseña (nuevamente)" type="password">
+         </div>
+         <div class="mb-3">
+            <input class="form-control mx-auto w-auto" name="correo" placeholder="Correo electrónico" type="email">
+        </div>
+         <button class="btn btn-dark" type="submit">Registrarse</button>
+     </form>
+ </div>
+{% endblock %}

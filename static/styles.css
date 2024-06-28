@@ -1,0 +1,74 @@
+body{
+    background-color:  #F5F5FD;
+}
+#formulario{
+    margin: 5% 35%;
+    min-width: 300px;
+}
+h1{
+    margin-bottom: 15%;
+    text-align: center;
+}
+footer{
+    width: 100%;
+    padding: 50px;
+    background-color:  #1E3A5F;
+    text-align: center;
+    color: #fff;
+}
+#registro{
+    min-height: 525px;
+}
+#sesion{
+    min-height: 525px;
+}
+#mainpage{
+    min-height: 525px;
+}
+#eventos{
+    min-height: 525px;
+}
+
+h2{
+    margin-bottom: 5%;
+}
+#forgot{
+    margin-top: 20px;
+}
+#cambiarContra{
+    min-height: 525px;
+}
+
+#logo{
+    height: 65px;
+    width: 140px;
+
+}
+#clogo{
+    width: 160px;
+    position: absolute;
+}
+#navbar{
+
+    margin-left: 12%;
+}
+#min-height{
+    min-height: 65px;
+}
+.nav-link{
+    font-weight: 700;
+    font-size: 12px;
+    color: #2c2c54 !important;
+    font-family: 'Montserrat', Helvetica, Arial, Lucida, sans-serif;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+#navbar{
+    background-color: #fff;
+}
+.container-fluid{
+    background-color: #fff;
+}
+#navbar1{
+    background-color: #fff;
+}

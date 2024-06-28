@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Contraseña Olvidada
+{% endblock %}
+
+{% block main %}
+
+<div class="container py-5 text-center" id="cambiarContra">
+    <form action="/forgot" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="username" placeholder="Nombre de usuario" type="text">
+               </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="correo" placeholder="Correo electrónico" type="email">
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="new_pass" placeholder="Nueva contraseña" type="password">
+        </div>
+        <button class="btn btn-dark" type="submit">Cambiar contraseña</button>
+
+    </form>
+</div>
+
+{% endblock %}

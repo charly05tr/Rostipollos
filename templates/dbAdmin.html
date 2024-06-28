@@ -1,0 +1,231 @@
+{% extends "layout.html" %}
+
+{% block title %}
+/Admin
+{% endblock %}
+
+{% block main %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let filtros = document.querySelector('#filtro');
+        let dfiltro = document.querySelector('#dfiltro');
+        filtros.addEventListener('change', function(){
+            if (filtros.value === 'fecha'){
+                dfiltro.innerHTML = `
+                <input class="mb-3" type="date" value="date">
+                `;
+            }
+        });
+        let nombre = [], mesero = [], calidadServicio = [], amabilidad = [];
+        let promo = [], restaurante = [], calidadComida = [], limpiezaBaños = [];
+        let comentario = [], ambienteInstalaciones = [], valoracionser = [], valoracionins = [];
+        '{% for h in range (cantidadUsuarios) %}'
+        nombre.push('{{ nombre[h][0]["nombre"]}}');
+        mesero.push('{{mesero[h][0]["nombreMesero"]}}');
+        calidadServicio.push('{{calidadServicio[h]}}');
+        amabilidad.push('{{amabilidad[h]}}');
+        promo.push('{{promo[h]}}');
+        restaurante.push('{{restaurante[h][0]["restaurante"]}}');
+        calidadComida.push('{{calidadComida[h]}}');
+        limpiezaBaños.push('{{limpiezaBaños[h]}}');
+        ambienteInstalaciones.push('{{ambienteInstalaciones[h]}}');
+        comentario.push('{{comentario[h][0]}}');
+        '{% endfor %}'
+        let valoracionS = document.querySelectorAll('.valoracionS');
+        let valoracionI = document.querySelectorAll('.valoracionI');
+        let subtitle = document.querySelectorAll('.subtitulo');
+        let bcomment = document.querySelectorAll('.comentario');
+        let s = document.querySelectorAll('.s');
+        let navbar = document.querySelector('nav');
+        let exitButton = document.querySelectorAll('.icon-button')
+        let ignoreBackground = document.querySelector('#ignoreBackground');
+        let footer = document.querySelector('footer');
+        let td = document.querySelectorAll('td.text-start + td.text-start');
+        let str = [], cl = [];
+        for (let i = 0; i < valoracionS.length; i++) {
+            cl[i] = comentario[i].length;
+            if (cl[i] > 70){
+                comentario[i] = String(comentario[i]);
+                comentario[i] = comentario[i].slice(28, cl[i] - 6);
+                str[i] = comentario[i].slice(0, 50) + "..."
+                bcomment[i].innerHTML = `<p>${str[i]}<p>`;
+                td[i].addEventListener('click', function(){
+                    s[i].style.visibility = 'visible';
+                    ignoreBackground.style.visibility = 'visible';
+                    navbar.style.visibility = 'hidden';
+                    footer.style.visibility = 'hidden';
+                    subtitle[i].innerHTML = `
+                    <h3>Comentario de <strong>${nombre[i]}</strong></h3>
+                    <p id="margen" class="text-center">${comentario[i]}<p>
+                    `;
+                });
+            }
+            switch(calidadServicio[i]){
+                case 'Excelente':
+                    valoracionser[i] = 4.5;
+                    break;
+                case 'Muy bueno':
+                    valoracionser[i] = 4.0;
+                    break;
+                case 'Bueno':
+                    valoracionser[i] = 3.5;
+                    break;
+                case 'Malo':
+                    valoracionser[i] = 2.0;
+                    break;
+            }
+            if (amabilidad[i] = 'Si'){
+                valoracionser[i] = valoracionser[i] + 0.25;
+            }
+            if (promo[i] = 'Si'){
+                valoracionser[i] = valoracionser[i] + 0.25;
+            }
+            valoracionser[i] = valoracionser[i].toFixed(1);
+            valoracionS[i].innerHTML = `${valoracionser[i]}`;
+            switch(calidadComida[i]){
+                case 'Excelente':
+                    valoracionins[i] = 3.5;
+                    break;
+                case 'Muy buena':
+                    valoracionins[i] = 3;
+                    break;
+                case 'Buena':
+                    valoracionins[i] = 2.5;
+                    break;
+                case 'Mala':
+                    valoracionins[i] = 1.5;
+                    break;
+            }
+            switch(limpiezaBaños[i]){
+                case 'Excelente':
+                    valoracionins[i] = valoracionins[i] + 0.7;
+                    break;
+                case 'Muy buena':
+                    valoracionins[i] = valoracionins[i] + 0.5;
+                    break;
+                case 'Buena':
+                    valoracionins[i] = valoracionins[i] + 0.3;
+                    break;
+                case 'Mala':
+                    valoracionins[i] = valoracionins[i] + 0;
+                    break;
+            }
+            switch(ambienteInstalaciones[i]){
+                case 'Excelente':
+                    valoracionins[i] = valoracionins[i] + 0.8;
+                    break;
+                case 'Muy bueno':
+                    valoracionins[i] = valoracionins[i] + 0.6;
+                    break;
+                case 'Bueno':
+                    valoracionins[i] = valoracionins[i] + 0.4;
+                    break;
+                case 'Malo':
+                    valoracionins[i] = valoracionins[i] + 0;
+                    break;
+            }
+            valoracionins[i] = valoracionins[i].toFixed(1);
+            valoracionI[i].innerHTML = `${valoracionins[i]}`;
+            valoracionS[i].addEventListener('click', function() {
+                subtitle[i].innerHTML = `
+                <h3>Valoración del servicio de <strong>${nombre[i]}</strong></h3>
+                <table id="ul" class="table">
+                    <tbody>
+                        <tr>
+                        <td class="text-start">Mesero</td>
+                        <td class="text-end">${mesero[i]}</td>
+                        </tr>
+                        <tr>
+                        <td class="text-start">Calidad del servicio</td>
+                        <td class="text-end">${calidadServicio[i]}</td>
+                        </tr>
+                        <tr>
+                        <td class="text-start">¿Lo atendieron con amabilidad?</td>
+                        <td class="text-end">${amabilidad[i]}</td>
+                        </tr>
+                        <tr>
+                        <td class="text-start">¿Le ofrecieron las promociones disponibles?</td>
+                        <td class="text-end">${promo[i]}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                `;
+            });
+            valoracionI[i].addEventListener('click', function() {
+                subtitle[i].innerHTML = `
+                <h3>Valoración instalaciones de <strong>${nombre[i]}</strong></h3>
+                <table id="ul" class="table">
+                    <tbody>
+                        <tr>
+                        <td class="text-start">Restaurante</td>
+                        <td class="text-end">${restaurante[i]}</td>
+                        </tr>
+                        <tr>
+                        <td class="text-start">Calidad de la comida</td>
+                        <td class="text-end">${calidadComida[i]}</td>
+                        </tr>
+                        <tr>
+                        <td class="text-start">limpieza de los baños</td>
+                        <td class="text-end">${limpiezaBaños[i]}</td>
+                        </tr>
+                        <tr>
+                        <td class="text-start">Ambiente e instalaciones</td>
+                        <td class="text-end">${ambienteInstalaciones[i]}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                `;
+            });
+        }
+    });
+</script>
+<div id="admin" class="container py-5 text-center">
+    {% for j in range (cantidadUsuarios) %}
+    <div class="s">
+        <div class="subtitulo"></div>
+        <button type="button" class="icon-button">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    {% endfor %}
+    <h2>Vista de la base de datos</h2>
+    <div class="input-group mb-3" id="filtros">
+        <button class="btn btn-outline-secondary" type="button">Filtrar</button>
+        <select class="form-select" id="filtro" aria-label="Example select with button addon">
+          <option selected>Choose...</option>
+          <option value="fecha">Fecha</option>
+          <option value="restaurante">Restaurante</option>
+          <option value="mesero">Mesero</option>
+        </select>
+        <div id="dfiltro"></div>
+      </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-start">Cliente</th>
+                <th class="text-center">Comentario</th>
+                <th class="text-center">Valoración servicio</th>
+                <th class="text-center">Valoración instalaciones</th>
+                <th class="text-end">Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range (cantidadUsuarios) %}
+            <tr class="tr">
+                <td class="text-start">{{nombre[i][0]["nombre"]}}</td>
+                <td class="text-start"><button class="comentario">{{comentario[i][0]["comentario"]}}</button></td>
+                <td class="text-center">
+                    <button type="button" class="valoracionS"></button>
+                    <i class="fas fa-star fa-xs icon-yellow"></i>
+                </td>
+                <td class="text-center">
+                    <button type="button" class="valoracionI"></button>
+                    <i class="fas fa-star fa-xs icon-yellow"></i>
+                </td>
+                <td class="text-end">{{fecha[i][0]["fecha"]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
